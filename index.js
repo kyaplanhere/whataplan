@@ -1,12 +1,18 @@
-var express = require('express')
-var app = express()
+var express = require("express");
+var bodyParser = require("body-parser");
+var routes = require("./routes/routes.js");
+var app = express();
 
-// it returns helloworld on root url
-app.get('/', function(req, res){
-    res.send("Hello world")
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/getcat', function(req, res){
-    res.send("Ideally this function should give out all categories");
+routes(app);
+
+var server = app.listen(3000, function () {
+    console.log("app running on port.", server.address().port);
 });
-var server = app.listen(8080)
