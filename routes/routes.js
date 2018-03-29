@@ -1,4 +1,7 @@
 var config = require("../config.json")
+var googleMapsClient = require('@google/maps').createClient({
+    key: config.API_KEY
+});
 
 console.log(config);
 
